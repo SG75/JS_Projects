@@ -12,6 +12,11 @@ const btnNew = document.querySelector(".btn--new");
 const btnRoll = document.querySelector(".btn--roll");
 const btnHold = document.querySelector(".btn--hold");
 
+const btnInfo = document.querySelector(".btn--info");
+const modal = document.querySelector(".modal");
+const overlay = document.querySelector(".overlay");
+const btnCloseModal = document.querySelector(".close-modal");
+
 //starting conditions
 score0El.textContent = 0;
 score1El.textContent = 0;
@@ -21,6 +26,16 @@ const scores = [0, 0];
 let currentScore = 0;
 let activePlayer = 0;
 let playing = true;
+
+const openModal = function () {
+  modal.classList.remove("hidden");
+  overlay.classList.remove("hidden");
+};
+
+const closeModal = function () {
+  modal.classList.add("hidden");
+  overlay.classList.add("hidden");
+};
 
 const switchPlayer = function () {
   document.getElementById(`current--${activePlayer}`).textContent = 0;
@@ -79,4 +94,14 @@ btnHold.addEventListener("click", function () {
 
 btnNew.addEventListener("click", function () {
   document.location.reload();
+});
+
+btnInfo.addEventListener("click", openModal);
+btnCloseModal.addEventListener("click", closeModal);
+overlay.addEventListener("click", closeModal);
+document.addEventListener("keydown", function (e) {
+  //   console.log(e);
+  if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+    closeModal();
+  }
 });
